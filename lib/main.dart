@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:skate_iraq/home_page.dart';
+import 'package:skate_iraq/views/categories.dart';
+import 'package:skate_iraq/views/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
       title: 'Skate Iraq',
       home: Main(),
     );
@@ -30,7 +32,7 @@ class _MainState extends State<Main> {
   int _selectedScreenIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
    HomePage(),
-   HomePage(),
+   Categories(),
    HomePage(),
    HomePage(),
    HomePage(),
@@ -46,12 +48,16 @@ class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xffF4F4F4),
       appBar: AppBar(
-        backgroundColor: Colors.grey,
+        backgroundColor:const Color(0xffF4F4F4),
         elevation: 0,
-        title: Image.asset('assets/Logo.png'),
+        leading: IconButton(onPressed: (){}, icon: const ImageIcon(AssetImage('assets/shopping.png'), color: Colors.black,),),
+        title: Image.asset('assets/Logo.png', scale: 1.8,),
         centerTitle: true,
+        actions: [
+          IconButton(onPressed: (){}, icon: const ImageIcon(AssetImage('assets/search.png'), color: Colors.black,),),
+        ],
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedScreenIndex),
@@ -64,7 +70,8 @@ class _MainState extends State<Main> {
         currentIndex: _selectedScreenIndex,
         onTap: _selectScreen,
         elevation: 0,
-
+          type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color(0xffF4F4F4),
         items: const [
           BottomNavigationBarItem(
             icon: ImageIcon(
