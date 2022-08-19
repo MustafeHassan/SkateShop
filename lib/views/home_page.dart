@@ -75,6 +75,52 @@ class _HomePageState extends State<HomePage> {
                     );
                   }),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Text('skate roles', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                  const Expanded(child: SizedBox()),
+                  ElevatedButton(onPressed: (){}, child: const Text('more'))
+                ],
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.23,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return  GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ProductDetails(image: image,)),
+                        );
+                      },
+                      child: SizedBox(
+                        width: 150,
+                        child: Card(
+                          clipBehavior: Clip.hardEdge,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.network('https://www.kindpng.com/picc/m/184-1848508_roller-skate-roller-skate-icon-png-transparent-png.png',scale: 12, fit: BoxFit.cover,),
+                                const Text('skate board'),
+                                const Text('110\$'),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+            ),
           ],
         ),
       ),
