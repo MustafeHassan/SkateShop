@@ -9,6 +9,18 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+
+  int min = 1;
+  int max = 5;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    min;
+    max;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +51,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.4,
+                height: MediaQuery.of(context).size.height * 0.3,
                 child: const Text('''
 Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -50,6 +62,65 @@ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint o
 sunt in culpa qui officia deserunt mollit anim id est laborum.
                 ''', overflow: TextOverflow.clip,)),
           ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: IconButton(onPressed: (){
+                  setState((){
+                    if(min > 1 && min <= max){
+                      setState((){
+                        min--;
+                      });
+                    }
+                  });
+                }, icon: const Icon(Icons.remove) ),
+              ),
+
+               Text('$min'),
+
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: IconButton(onPressed: (){
+                  setState((){
+                    if(min >= 1 && min <= max){
+                      setState((){
+                        min++;
+                      });
+                    }
+                  });
+                }, icon: const Icon(Icons.add) ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.redAccent,
+                backgroundBlendMode: BlendMode.darken,
+                border: Border(),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: ElevatedButton(onPressed: (){}, child: const Icon(Icons.favorite) ),
+                  ),
+
+                  const Expanded(child: SizedBox()),
+
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: ElevatedButton(onPressed: (){}, child: const Text(' Add to Cart'), ),
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
 
