@@ -53,16 +53,6 @@ class _MainState extends State<Main> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF4F4F4),
-      appBar: AppBar(
-        backgroundColor:const Color(0xffF4F4F4),
-        elevation: 0,
-        leading: IconButton(onPressed: (){}, icon: const ImageIcon(AssetImage('assets/shopping.png'), color: Colors.black,),),
-        title: Image.asset('assets/Logo.png', scale: 1.8,),
-        centerTitle: true,
-        actions: [
-          IconButton(onPressed: (){}, icon: const ImageIcon(AssetImage('assets/search.png'), color: Colors.black,),),
-        ],
-      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedScreenIndex),
       ),

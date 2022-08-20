@@ -11,6 +11,12 @@ class _LocationsState extends State<Locations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor:const Color(0xffF4F4F4),
+        elevation: 0,
+        title: const Text('Locations', style: TextStyle(color: Colors.black),),
+        centerTitle: true,
+      ),
       backgroundColor: const Color(0xffF4F4F4),
       body: ListView.builder(
           itemCount: 8,

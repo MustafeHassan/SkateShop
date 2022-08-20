@@ -20,6 +20,12 @@ class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor:const Color(0xffF4F4F4),
+        elevation: 0,
+        title: const Text('Catgories', style: TextStyle(color: Colors.black),),
+        centerTitle: true,
+      ),
       backgroundColor: const Color(0xffF4F4F4),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -14,6 +14,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor:const Color(0xffF4F4F4),
+        elevation: 0,
+        leading: IconButton(onPressed: (){}, icon: const ImageIcon(AssetImage('assets/shopping.png'), color: Colors.black,),),
+        title: Image.asset('assets/Logo.png', scale: 1.8,),
+        centerTitle: true,
+        actions: [
+          IconButton(onPressed: (){}, icon: const ImageIcon(AssetImage('assets/search.png'), color: Colors.black,),),
+        ],
+      ),
       backgroundColor: const Color(0xffF4F4F4),
       body: SingleChildScrollView(
         child: Column(
@@ -75,6 +85,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   }),
             ),
+            const SizedBox(height: 20,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -86,6 +97,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.23,
               child: ListView.builder(
