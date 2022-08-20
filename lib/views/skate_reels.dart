@@ -62,13 +62,10 @@ class _SkateReelsState extends State<SkateReels> {
                       children: [
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Flexible(flex: 14,child: Container(
-                              color: Colors.pink,
-                              height: 100,
-                              child: const ReelDetail(),
-                            )),
-                            const Flexible(flex: 2,child: ReelSideBar(),
+                          children: const [
+                            Flexible(flex: 14,child:  ReelDetail(),
+                            ),
+                            Flexible(flex: 2,child: ReelSideBar(),
                             )
                           ],
                         )

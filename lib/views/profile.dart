@@ -13,7 +13,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: const Color(0xffF4F4F4),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color(0xffF4F4F4),
         elevation: 0,
         leading: IconButton(onPressed: (){}, icon: const ImageIcon(AssetImage('assets/slide.png'), color: Colors.black,),),
         title: const Text('Profile', style: TextStyle(color: Colors.black),),
@@ -75,6 +75,21 @@ class _ProfileState extends State<Profile> {
                     ),
                   ],),
                 ],
+              ),
+            ),
+            const SizedBox(height: 20,),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.07,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: GestureDetector(
+                onTap: (){},
+                child: Card(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: const Center(child: Text('Edit Profile', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),)),
+                ),
               ),
             ),
             const SizedBox(height: 20,),
