@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:skate_iraq/views/categories.dart';
-import 'package:skate_iraq/views/home_page.dart';
-import 'package:skate_iraq/views/locations.dart';
+
+import 'views/home_page.dart';
+import 'views/categories.dart';
+import 'views/skate_reels.dart';
+import 'views/locations.dart';
+import 'views/profile.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -31,13 +35,12 @@ class Main extends StatefulWidget {
 
 class _MainState extends State<Main> {
   int _selectedScreenIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
+  static const List _widgetOptions = [
    HomePage(),
    Categories(),
-   HomePage(),
+   SkateReels(),
    Locations(),
-   HomePage(),
-
+   Profile()
   ];
 
   void _selectScreen(int index) {

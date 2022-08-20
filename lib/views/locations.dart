@@ -22,16 +22,17 @@ class _LocationsState extends State<Locations> {
                 },
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.1,
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: const [
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                            padding: EdgeInsets.all(8.0),
                             child: Icon(Icons.location_on),
                           ),
                           Padding(
