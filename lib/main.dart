@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skate_iraq/views/categories.dart';
 import 'package:skate_iraq/views/home_page.dart';
+import 'package:skate_iraq/views/locations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +35,7 @@ class _MainState extends State<Main> {
    HomePage(),
    Categories(),
    HomePage(),
-   HomePage(),
+   Locations(),
    HomePage(),
 
   ];
