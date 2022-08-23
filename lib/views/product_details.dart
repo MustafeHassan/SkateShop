@@ -10,15 +10,13 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails> {
 
-  int min = 1;
-  int max = 5;
+  int quantity = 1;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    min;
-    max;
+    quantity;
   }
 
   @override
@@ -68,26 +66,18 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
                 padding: const EdgeInsets.all(12.0),
                 child: IconButton(onPressed: (){
                   setState((){
-                    if(min > 1 && min <= max){
-                      setState((){
-                        min--;
-                      });
-                    }
+                    quantity == 1 ? 1 : quantity--;
                   });
                 }, icon: const Icon(Icons.remove) ),
               ),
 
-               Text('$min'),
+               Text('$quantity'),
 
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: IconButton(onPressed: (){
                   setState((){
-                    if(min >= 1 && min <= max){
-                      setState((){
-                        min++;
-                      });
-                    }
+                    quantity < 5 ? quantity++ : quantity;
                   });
                 }, icon: const Icon(Icons.add) ),
               ),
