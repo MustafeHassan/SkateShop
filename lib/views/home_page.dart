@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:skate_iraq/models/product_models.dart';
 import 'package:skate_iraq/views/product_details.dart';
 
+import '../models/product_models.dart';
 import '../view_models/product_viewmodel.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,17 +16,20 @@ String image = 'assets/ad.png';
 
 class _HomePageState extends State<HomePage> {
 
-
+  Products? products;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    final data = Provider.of<ProductViewModel>(context, listen: false);
+    data.fetchProduct(context);
+    products = Provider.of<ProductViewModel>(context).product;
 
   }
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ProductViewModel>(context).fetchProduct();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor:const Color(0xffF4F4F4),
@@ -49,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      Image.asset(Provider.of<ProductViewModel>(context).products.image),
+                      Image.network(products!.image),
                     ],
                   );
                }),
@@ -112,44 +115,44 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.23,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return  GestureDetector(
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ProductDetails(image: image,)),
-                        );
-                      },
-                      child: SizedBox(
-                        width: 150,
-                        child: Card(
-                          clipBehavior: Clip.hardEdge,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Image.network('https://www.kindpng.com/picc/m/184-1848508_roller-skate-roller-skate-icon-png-transparent-png.png',scale: 12, fit: BoxFit.cover,),
-                                const Text('skate board'),
-                                const Text('110\$'),
-                              ],
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.23,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return  GestureDetector(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ProductDetails(image: image,)),
+                          );
+                        },
+                        child: SizedBox(
+                          width: 150,
+                          child: Card(
+                            clipBehavior: Clip.hardEdge,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Image.network('https://www.kindpng.com/picc/m/184-1848508_roller-skate-roller-skate-icon-png-transparent-png.png',scale: 12, fit: BoxFit.cover,),
+                                  const Text('skate board'),
+                                  const Text('110\$'),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  }),
-            ),
-          ],
+                      );
+                    }),
+              ),
+            ],
+          ),
         ),
-      ),
     );
   }
 }
