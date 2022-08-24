@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../view_models/product_viewmodel.dart';
+
 class ProductDetails extends StatefulWidget {
   const ProductDetails({Key? key, required this.image}) : super(key: key);
 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:skate_iraq/view_models/product_viewmodel.dart';
 
 import 'views/home_page.dart';
 import 'views/categories.dart';
@@ -8,7 +10,12 @@ import 'views/profile.dart';
 
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+      MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProductViewModel()),
+      ],
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

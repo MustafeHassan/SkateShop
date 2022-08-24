@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:skate_iraq/models/product_models.dart';
 import 'package:skate_iraq/views/product_details.dart';
+
+import '../view_models/product_viewmodel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,8 +15,18 @@ class HomePage extends StatefulWidget {
 String image = 'assets/ad.png';
 
 class _HomePageState extends State<HomePage> {
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    Provider.of<ProductViewModel>(context).fetchProduct();
     return Scaffold(
       appBar: AppBar(
         backgroundColor:const Color(0xffF4F4F4),
@@ -35,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      Image.asset(image),
+                      Image.asset(Provider.of<ProductViewModel>(context).products.image),
                     ],
                   );
                }),
@@ -45,7 +59,7 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Text('skate boards', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                  Text('xx', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
                   const Expanded(child: SizedBox()),
                   ElevatedButton(onPressed: (){}, child: const Text('more'))
                 ],
