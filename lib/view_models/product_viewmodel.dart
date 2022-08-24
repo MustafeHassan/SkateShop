@@ -7,12 +7,12 @@ import '../models/product_models.dart';
 
 class ProductViewModel extends ChangeNotifier{
 
-late Products product;
+late Products products;
 
 void fetchProduct(context) async {
 
 
-  product = await getData(context);
+ // products = await getData(context);
   notifyListeners();
 
   // var url = Uri.parse('https://fakestoreapi.com/products');
@@ -31,22 +31,17 @@ void fetchProduct(context) async {
 
 }
 
-Future<Products> getData(context) async {
-  late Products dataModel;
+Future getData() async {
 
-  try {
-    final response = await http
-        .get(Uri.parse('https://fakestoreapi.com/products'));
+    var url = Uri.parse('https://fakestoreapi.com/products');
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      dataModel = Products.fromJson(data);
-    }else{
-      print("Something went wrong");
-    }
-  } catch (e) {
-    print(e.toString());
-  }
-
-  return dataModel;
+    debugPrint('url: $url');
+    var response = await http.get(
+      url,
+    );
+    debugPrint('response: $response');
+    debugPrint('response.statusCode: ${response.statusCode}');
+    var jsonUsers = jsonDecode(response.body);
+  // products = Products.fromJson(data);
+  return jsonUsers.map<Products>((userJson) => Products.fromJson(userJson)).toList();
 }

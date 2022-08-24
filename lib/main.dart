@@ -10,12 +10,7 @@ import 'views/profile.dart';
 
 
 void main() {
-  runApp(
-      MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ProductViewModel()),
-      ],
-      child: const MyApp()));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -24,11 +19,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
-      title: 'Skate Iraq',
-      home: Main(),
+    return  MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProductViewModel()),
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.light,
+        title: 'Skate Iraq',
+        home: Main(),
+      ),
     );
   }
 }
