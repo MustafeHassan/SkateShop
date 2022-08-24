@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                       physics: const NeverScrollableScrollPhysics(),
                         gridDelegate:const SliverGridDelegateWithMaxCrossAxisExtent(
                             maxCrossAxisExtent: 150, childAspectRatio: 0.60, crossAxisSpacing: 4, mainAxisSpacing: 4),
-                        itemCount: 13,
+                        itemCount: 20 ,
                         itemBuilder: (BuildContext ctx, index) {
                           return InkWell(
                             onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductDetails(image: snapshot.data[index].image, title: snapshot.data[index].title, description: snapshot.data[index].description, price: snapshot.data[index].price.toString(),))),
@@ -239,7 +239,7 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(height: constraints.maxHeight *0.03,),
+                                          SizedBox(height: constraints.maxHeight *0.01,),
                                           SizedBox(
                                             height: constraints.maxHeight *0.07,
                                             child: Center(
@@ -249,7 +249,7 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(height: constraints.maxHeight *0.03,)
+                                          SizedBox(height: constraints.maxHeight *0.01,)
                                         ],
                                       );
                                     }
