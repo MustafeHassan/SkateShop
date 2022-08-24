@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skate_iraq/views/product_details.dart';
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Expanded(
                                 child: Image.network(
-                                    snapshot.data[index].image, fit: BoxFit.fill,),
+                                    snapshot.data[index].image, fit: BoxFit.cover,),
                               ),
                             ],
                           );
@@ -118,6 +119,7 @@ class _HomePageState extends State<HomePage> {
                           );
                         }),
                   ),
+
                   const SizedBox(height: 20,),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -169,6 +171,88 @@ class _HomePageState extends State<HomePage> {
                                       Text('${snapshot.data[index].price}\$', style: const TextStyle(overflow: TextOverflow.ellipsis),),
                                     ],
                                   ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                  ),
+
+                  const SizedBox(height: 20,),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text('All', style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),),
+                        const Expanded(child: SizedBox()),
+                        ElevatedButton(onPressed: () {}, child: const Text(
+                            'more'))
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 1500,
+                    child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 150, childAspectRatio: 0.60, crossAxisSpacing: 4, mainAxisSpacing: 4),
+                        itemCount: 13,
+                        itemBuilder: (BuildContext ctx, index) {
+                          return InkWell(
+                            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductDetails(image: snapshot.data[index].image, title: snapshot.data[index].title, description: snapshot.data[index].description, price: snapshot.data[index].price.toString(),))),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              color: Colors.white,
+                              child: Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: LayoutBuilder(
+                                    builder: (ctx, constraints) {
+                                      return Column(
+                                        children: [
+                                          Builder(
+                                              builder: (context) {
+                                                return CachedNetworkImage(
+                                                  imageUrl: snapshot.data[index].image,
+                                                  height: constraints.maxHeight * 0.70,
+                                                  fit: BoxFit.fill,
+                                                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                                  errorWidget: (context, url, error) {
+                                                    debugPrint('error: $error');
+                                                    return const Icon(Icons.error_outline);
+                                                  },
+                                                );
+                                              }
+                                          ),
+                                          SizedBox(height: constraints.maxHeight *0.02,),
+                                          SizedBox(
+                                            height: constraints.maxHeight *0.10,
+                                            child: Center(
+                                              child: Text(
+                                                snapshot.data[index].title,
+                                                maxLines: 1,
+                                                style: const TextStyle(fontSize: 15, fontFamily: 'Tajawal', fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: constraints.maxHeight *0.03,),
+                                          SizedBox(
+                                            height: constraints.maxHeight *0.07,
+                                            child: Center(
+                                              child: Text(
+                                                '\$ ${snapshot.data[index].price}',
+                                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: constraints.maxHeight *0.03,)
+                                        ],
+                                      );
+                                    }
                                 ),
                               ),
                             ),
