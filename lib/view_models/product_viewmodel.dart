@@ -2,36 +2,28 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:skate_iraq/models/enum.dart';
 
 import '../models/product_models.dart';
 
 class ProductViewModel extends ChangeNotifier{
 
-late Products products;
+ Products? products;
+LoadingState loadingState = LoadingState.idle;
 
-void fetchProduct(context) async {
-
-
- // products = await getData(context);
+void fetchProduct() async {
+  loadingState = LoadingState.loading;
   notifyListeners();
 
-  // var url = Uri.parse('https://fakestoreapi.com/products');
-  // debugPrint('url: $url');
-  //
-  // var response = await http.get(url);
-  // debugPrint('response statusCode : ${response.statusCode}');
-  // if(response.statusCode == 200){
-  //   product = Products.fromJson(jsonDecode(response.body));
-  // }else{
-  //   debugPrint('reeeeeeeeeeeeeeeeeeeeore');
-  // }
-  // notifyListeners();
-}
+  products = await getData();
 
+  loadingState = LoadingState.finished;
+  notifyListeners();
 
 }
+}
 
-Future getData() async {
+ getData() async {
 
     var url = Uri.parse('https://fakestoreapi.com/products');
 

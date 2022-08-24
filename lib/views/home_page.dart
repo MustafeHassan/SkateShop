@@ -16,14 +16,18 @@ String image = 'assets/ad.png';
 
 class _HomePageState extends State<HomePage> {
 
+  Products? products;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    Provider.of<ProductViewModel>(context).fetchProduct();
+    products = Provider.of<ProductViewModel>(context).products;
   }
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<ProductViewModel>(context).fetchProduct();
 
     return Scaffold(
       appBar: AppBar(
@@ -37,11 +41,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       backgroundColor: const Color(0xffF4F4F4),
-      body: FutureBuilder(
-        future: getData(),
-        builder: (context, snapshot) {
-          print(snapshot.data);
-          return SingleChildScrollView(
+      body:  SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                    itemBuilder: (context, index) {
                       return Column(
                         children: [
-                          Image.network(snapshot.data[index].image ?? "Loading..."),
+                          Image.network(Provider.of<ProductViewModel>(context).products!.image ?? "Loading..."),
                         ],
                       );
                    }),
@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(snapshot.data?[5].title ?? "Loading...", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                      Text(Provider.of<ProductViewModel>(context).products!.title ?? "Loading...", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
                       const Expanded(child: SizedBox()),
                       ElevatedButton(onPressed: (){}, child: const Text('more'))
                     ],
@@ -151,9 +151,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-            );
-        }
-      ),
+            ),
     );
   }
 }
