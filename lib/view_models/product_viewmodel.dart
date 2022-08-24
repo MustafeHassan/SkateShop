@@ -23,7 +23,7 @@ void fetchProduct() async {
 }
 }
 
- getData() async {
+Future getData() async {
 
     var url = Uri.parse('https://fakestoreapi.com/products');
 
