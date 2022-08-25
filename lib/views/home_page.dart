@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: const Color(0xffF4F4F4),
       body: FutureBuilder(
-        future: getData(),
+        future: Provider.of<ProductViewModel>(context).getData(),
         builder: (context, snapshot) {
           if(snapshot.hasData) {
             print(snapshot.data);
