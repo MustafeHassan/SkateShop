@@ -22,19 +22,20 @@ void fetchProduct() async {
 
 }
 
- Future getData() async {
 
-   var url = Uri.parse('https://fakestoreapi.com/products');
-
-   debugPrint('url: $url');
-   var response = await http.get(
-     url,
-   );
-   debugPrint('response: $response');
-   debugPrint('response.statusCode: ${response.statusCode}');
-   var jsonUsers = jsonDecode(response.body);
-   // products = Products.fromJson(data);
-   return jsonUsers.map<Products>((userJson) => Products.fromJson(userJson)).toList();
- }
 }
 
+Future getData() async {
+
+  var url = Uri.parse('https://fakestoreapi.com/products');
+
+  debugPrint('url: $url');
+  var response = await http.get(
+    url,
+  );
+  debugPrint('response: $response');
+  debugPrint('response.statusCode: ${response.statusCode}');
+  var jsonUsers = jsonDecode(response.body);
+  // products = Products.fromJson(data);
+  return jsonUsers.map<Products>((userJson) => Products.fromJson(userJson)).toList();
+}

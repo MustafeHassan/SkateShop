@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:skate_iraq/views/cart_page.dart';
 import 'package:skate_iraq/views/product_details.dart';
 
-import '../models/product_models.dart';
 import '../view_models/product_viewmodel.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,11 +17,7 @@ String image = 'assets/ad.png';
 
 class _HomePageState extends State<HomePage> {
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +26,13 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor:const Color(0xffF4F4F4),
         elevation: 0,
-        leading: IconButton(onPressed: (){}, icon: const ImageIcon(AssetImage('assets/shopping.png'), color: Colors.black,),),
+        leading: IconButton(onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>
+                const CartPage()),
+          );
+        }, icon: const ImageIcon(AssetImage('assets/shopping.png'), color: Colors.black,),),
         title: Image.asset('assets/Logo.png', scale: 1.8,),
         centerTitle: true,
         actions: [
@@ -39,7 +41,7 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: const Color(0xffF4F4F4),
       body: FutureBuilder(
-        future: Provider.of<ProductViewModel>(context).getData(),
+        future: getData(),
         builder: (context, snapshot) {
           if(snapshot.hasData) {
             print(snapshot.data);
@@ -69,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const Text('Skate Boards' ?? "Loading...",
+                        const Text('Skate Boards',
                           style: TextStyle(fontWeight: FontWeight.bold,
                               fontSize: 16),),
                         const Expanded(child: SizedBox()),
@@ -194,65 +196,40 @@ class _HomePageState extends State<HomePage> {
                   ),
 
                   SizedBox(
-                    height: 1500,
-                    child: GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 150, childAspectRatio: 0.60, crossAxisSpacing: 4, mainAxisSpacing: 4),
-                        itemCount: 20 ,
-                        itemBuilder: (BuildContext ctx, index) {
-                          return InkWell(
-                            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductDetails(image: snapshot.data[index].image, title: snapshot.data[index].title, description: snapshot.data[index].description, price: snapshot.data[index].price.toString(),))),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              color: Colors.white,
-                              child: Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: LayoutBuilder(
-                                    builder: (ctx, constraints) {
-                                      return Column(
-                                        children: [
-                                          Builder(
-                                              builder: (context) {
-                                                return CachedNetworkImage(
-                                                  imageUrl: snapshot.data[index].image,
-                                                  height: constraints.maxHeight * 0.70,
-                                                  fit: BoxFit.fill,
-                                                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                  errorWidget: (context, url, error) {
-                                                    debugPrint('error: $error');
-                                                    return const Icon(Icons.error_outline);
-                                                  },
-                                                );
-                                              }
-                                          ),
-                                          SizedBox(height: constraints.maxHeight *0.02,),
-                                          SizedBox(
-                                            height: constraints.maxHeight *0.10,
-                                            child: Center(
-                                              child: Text(
-                                                snapshot.data[index].title,
-                                                maxLines: 1,
-                                                style: const TextStyle(fontSize: 15, fontFamily: 'Tajawal', fontWeight: FontWeight.bold),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(height: constraints.maxHeight *0.01,),
-                                          SizedBox(
-                                            height: constraints.maxHeight *0.07,
-                                            child: Center(
-                                              child: Text(
-                                                '\$ ${snapshot.data[index].price}',
-                                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(height: constraints.maxHeight *0.01,)
-                                        ],
-                                      );
-                                    }
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.23,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 5,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>
+                                    ProductDetails(image: snapshot.data[index].image, title: snapshot.data[index].title, description: snapshot.data[index].description, price: snapshot.data[index].price.toString(),)),
+                              );
+                            },
+                            child: SizedBox(
+                              width: 150,
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceEvenly,
+                                    children: [
+                                      Image.network(
+                                          snapshot.data[index].image,
+                                          scale: 12, fit: BoxFit.cover),
+                                      Text(snapshot.data[index].title, style: const TextStyle(overflow: TextOverflow.ellipsis),),
+                                      Text('${snapshot.data[index].price}\$'),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
