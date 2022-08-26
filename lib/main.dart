@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.light,
         title: 'Skate Iraq',
         home: Main(),
       ),

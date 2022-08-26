@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skate_iraq/views/cart_page.dart';
 import 'package:skate_iraq/views/product_details.dart';
+import 'package:skate_iraq/views/search_page.dart';
 
 import '../view_models/product_viewmodel.dart';
 
@@ -36,7 +37,13 @@ class _HomePageState extends State<HomePage> {
         title: Image.asset('assets/Logo.png', scale: 1.8,),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: (){}, icon: const ImageIcon(AssetImage('assets/search.png'), color: Colors.black,),),
+          IconButton(onPressed: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>
+              const SearchPage()),
+            );
+          }, icon: const ImageIcon(AssetImage('assets/search.png'), color: Colors.black,),),
         ],
       ),
       backgroundColor: const Color(0xffF4F4F4),
