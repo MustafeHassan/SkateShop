@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../view_models/product_viewmodel.dart';
+import '../models/product_models.dart';
 
 class ProductDetails extends StatefulWidget {
-  const ProductDetails({Key? key, required this.image, required this.title, required this.description, required this.price}) : super(key: key);
+  const ProductDetails({Key? key, required this.product}) : super(key: key);
 
-  final String image;
-  final String title;
-  final String description;
-  final String price;
+  final Products product;
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
 }
@@ -37,16 +34,16 @@ class _ProductDetailsState extends State<ProductDetails> {
             children: [
               SizedBox(
                   height: MediaQuery.of(context).size.height * 0.23,
-                  child: Image.network(widget.image)),
+                  child: Image.network(widget.product.image)),
               SizedBox(
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                     children:  [
-                      Text(widget.title),
+                      Text(widget.product.title),
                       const Expanded(child: SizedBox(),),
-                       Text('\$${widget.price}'),
+                       Text('\$${widget.product.price}'),
                       ],
                     ),
                   ),
@@ -56,7 +53,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: SizedBox(
                     height: MediaQuery.of(context).size.height * 0.3,
                     child:  Text('''
-${widget.description}
+${widget.product.description}
                     ''', overflow: TextOverflow.clip,)),
               ),
               Row(

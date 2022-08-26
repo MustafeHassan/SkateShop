@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) =>
-                                    ProductDetails(image: snapshot.data[index].image, title: snapshot.data[index].title, description: snapshot.data[index].description, price: snapshot.data[index].price.toString(),)),
+                                    ProductDetails(product: snapshot.data[index],)),
                               );
                             },
                             child: SizedBox(
@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) =>
-                                    ProductDetails(image: snapshot.data[index].image, title: snapshot.data[index].title, description: snapshot.data[index].description, price: snapshot.data[index].price.toString(),)),
+                                    ProductDetails(product: snapshot.data[index])),
                               );
                             },
                             child: SizedBox(
@@ -209,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) =>
-                                    ProductDetails(image: snapshot.data[index].image, title: snapshot.data[index].title, description: snapshot.data[index].description, price: snapshot.data[index].price.toString(),)),
+                                    ProductDetails(product: snapshot.data[index],)),
                               );
                             },
                             child: SizedBox(

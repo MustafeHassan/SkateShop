@@ -56,6 +56,8 @@ class _MainState extends State<Main> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,13 +68,13 @@ class _MainState extends State<Main> {
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        unselectedItemColor: Colors.black,
+        unselectedItemColor: _selectedScreenIndex == 2? const Color(0xffF4F4F4) : Colors.black,
         selectedItemColor: const Color(0xFFff0000),
         currentIndex: _selectedScreenIndex,
         onTap: _selectScreen,
         elevation: 0,
           type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xffF4F4F4),
+        backgroundColor: _selectedScreenIndex == 2? Colors.black : const Color(0xffF4F4F4),
         items: const [
           BottomNavigationBarItem(
             icon: ImageIcon(
