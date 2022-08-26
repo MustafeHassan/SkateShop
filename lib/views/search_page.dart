@@ -20,6 +20,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xffF4F4F4),
         title: Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
@@ -30,7 +31,6 @@ class _SearchPageState extends State<SearchPage> {
             },
             controller: editingController,
             decoration: const InputDecoration(
-                labelText: "Search",
                 hintText: "Search",
                 prefixIcon: Icon(Icons.search),
             ),
@@ -82,7 +82,7 @@ class _SearchPageState extends State<SearchPage> {
                               ),
                             ),
                           ),
-                        ) : const Text('not found');
+                        ) : Container();
                       });
                 }
               );
