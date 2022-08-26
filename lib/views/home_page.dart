@@ -40,8 +40,8 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       backgroundColor: const Color(0xffF4F4F4),
-      body: FutureBuilder(
-        future: getData(),
+      body: StreamBuilder(
+        stream: getData(),
         builder: (context, snapshot) {
           if(snapshot.hasData) {
             print(snapshot.data);

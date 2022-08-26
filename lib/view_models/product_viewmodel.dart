@@ -25,7 +25,7 @@ void fetchProduct() async {
 
 }
 
-Future getData() async {
+Stream getData() async* {
 
   var url = Uri.parse('https://fakestoreapi.com/products');
 
@@ -37,5 +37,5 @@ Future getData() async {
   debugPrint('response.statusCode: ${response.statusCode}');
   var jsonUsers = jsonDecode(response.body);
   // products = Products.fromJson(data);
-  return jsonUsers.map<Products>((userJson) => Products.fromJson(userJson)).toList();
+  yield jsonUsers.map<Products>((userJson) => Products.fromJson(userJson)).toList();
 }
