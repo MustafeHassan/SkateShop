@@ -51,7 +51,6 @@ class _HomePageState extends State<HomePage> {
         stream: getData(),
         builder: (context, snapshot) {
           if(snapshot.hasData) {
-            print(snapshot.data);
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -67,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Expanded(
                                 child: Image.network(
-                                    snapshot.data[index].image, fit: BoxFit.cover,),
+                                    (snapshot.data as List)[index].image, fit: BoxFit.cover,),
                               ),
                             ],
                           );
@@ -101,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) =>
-                                    ProductDetails(product: snapshot.data[index],)),
+                                    ProductDetails(product: (snapshot.data as List)[index],)),
                               );
                             },
                             child: SizedBox(
@@ -116,10 +115,10 @@ class _HomePageState extends State<HomePage> {
                                         .spaceEvenly,
                                     children: [
                                       Image.network(
-                                        snapshot.data[index].image,
+                                          (snapshot.data as List)[index].image,
                                           scale: 12, fit: BoxFit.cover),
-                                      Text(snapshot.data[index].title, style: const TextStyle(overflow: TextOverflow.ellipsis),),
-                                      Text('${snapshot.data[index].price}\$'),
+                                      Text((snapshot.data as List)[index].title, style: const TextStyle(overflow: TextOverflow.ellipsis),),
+                                      Text('${(snapshot.data as List)[index].price}\$'),
                                     ],
                                   ),
                                 ),
@@ -158,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) =>
-                                    ProductDetails(product: snapshot.data[index])),
+                                    ProductDetails(product: (snapshot.data as List)[index])),
                               );
                             },
                             child: SizedBox(
@@ -174,10 +173,10 @@ class _HomePageState extends State<HomePage> {
                                         .spaceBetween,
                                     children: [
                                       Image.network(
-                                        snapshot.data[index].image,
+                                        (snapshot.data as List)[index].image,
                                         scale: 12, fit: BoxFit.cover,),
-                                      Text(snapshot.data[index].title, style: const TextStyle(overflow: TextOverflow.ellipsis),),
-                                      Text('${snapshot.data[index].price}\$', style: const TextStyle(overflow: TextOverflow.ellipsis),),
+                                      Text((snapshot.data as List)[index].title, style: const TextStyle(overflow: TextOverflow.ellipsis),),
+                                      Text('${(snapshot.data as List)[index].price}\$', style: const TextStyle(overflow: TextOverflow.ellipsis),),
                                     ],
                                   ),
                                 ),
@@ -216,7 +215,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) =>
-                                    ProductDetails(product: snapshot.data[index],)),
+                                    ProductDetails(product: (snapshot.data as List)[index],)),
                               );
                             },
                             child: SizedBox(
@@ -231,10 +230,10 @@ class _HomePageState extends State<HomePage> {
                                         .spaceEvenly,
                                     children: [
                                       Image.network(
-                                          snapshot.data[index].image,
+                                          (snapshot.data as List)[index].image,
                                           scale: 12, fit: BoxFit.cover),
-                                      Text(snapshot.data[index].title, style: const TextStyle(overflow: TextOverflow.ellipsis),),
-                                      Text('${snapshot.data[index].price}\$'),
+                                      Text((snapshot.data as List)[index].title, style: const TextStyle(overflow: TextOverflow.ellipsis),),
+                                      Text('${(snapshot.data as List)[index].price}\$'),
                                     ],
                                   ),
                                 ),

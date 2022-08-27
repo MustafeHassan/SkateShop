@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:skate_iraq/views/product_details.dart';
-
 import '../view_models/product_viewmodel.dart';
 
 class SearchPage extends StatefulWidget {
@@ -46,14 +45,14 @@ class _SearchPageState extends State<SearchPage> {
                 builder: (context) {
                   return ListView.builder(
                       scrollDirection: Axis.vertical,
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, index) {
-                        return snapshot.data[index].title.contains(searchString)? GestureDetector(
+                      itemCount: (snapshot.data as List).length,
+                      itemBuilder: (context, int index) {
+                        return (snapshot.data as List)[index].title.contains(searchString)? GestureDetector(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) =>
-                                  ProductDetails(product: snapshot.data[index],)),
+                                  ProductDetails(product: (snapshot.data as List)[index],)),
                             );
                           },
                           child: SizedBox(
@@ -69,13 +68,13 @@ class _SearchPageState extends State<SearchPage> {
 
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Text(snapshot.data[index].title, style: const TextStyle(overflow: TextOverflow.ellipsis),),
+                                          child: Text((snapshot.data as List)[index].title, style: const TextStyle(overflow: TextOverflow.ellipsis),),
                                         )),
                                     SizedBox(
 
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Text('${snapshot.data[index].price}\$'),
+                                          child: Text('${(snapshot.data as List)[index].price}\$'),
                                         )),
                                   ],
                                 ),

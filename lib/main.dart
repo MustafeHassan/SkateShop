@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skate_iraq/view_models/product_viewmodel.dart';
+import 'package:skate_iraq/views/map_page.dart';
 
 import 'views/home_page.dart';
 import 'views/categories.dart';
@@ -41,11 +42,11 @@ class Main extends StatefulWidget {
 
 class _MainState extends State<Main> {
   int _selectedScreenIndex = 0;
-  static const List _widgetOptions = [
+  static const List  _widgetOptions = [
    HomePage(),
    Categories(),
    SkateReels(),
-   Locations(),
+   MapPage(),
    Profile()
   ];
 
