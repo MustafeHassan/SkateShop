@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skate_iraq/view_models/product_viewmodels.dart';
 import 'package:skate_iraq/views/map_page.dart';
-import 'views/skate_reels/skate_reels.dart';
-import 'views/profile.dart';
-import 'views/the_store/categories.dart';
+import 'package:skate_iraq/views/the_store/cart_page.dart';
+import 'views/skate_reels/skate_reels_page.dart';
+import 'views/account_page.dart';
 import 'views/the_store/home_page.dart';
 
 
@@ -43,10 +43,10 @@ class _MainState extends State<Main> {
   int _selectedScreenIndex = 0;
   static const List  _widgetOptions = [
    HomePage(),
-   Categories(),
+   CartPage(),
    SkateReels(),
    MapPage(),
-   Profile()
+   Account()
   ];
 
   void _selectScreen(int index) {
@@ -83,27 +83,27 @@ class _MainState extends State<Main> {
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage("assets/cate.png"),
+              AssetImage("assets/shopping.png"),
             ),
-            label: 'Categories',
+            label: 'ShoppingCart',
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
               AssetImage("assets/reels.png"),
             ),
-            label: 'Articles',
+            label: 'SkateReels',
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
               AssetImage("assets/map.png"),
             ),
-            label: 'Articles',
+            label: 'SkateParksMap',
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
               AssetImage("assets/account.png"),
             ),
-            label: 'Articles',
+            label: 'Account',
           ),
         ],
       ),

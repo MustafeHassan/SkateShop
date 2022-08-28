@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:skate_iraq/views/the_store/product_details.dart';
+import 'package:skate_iraq/views/the_store/product_details_page.dart';
 
 import '../../../view_models/product_viewmodels.dart';
 import 'cart_page.dart';
@@ -27,13 +26,6 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor:const Color(0xffF4F4F4),
         elevation: 0,
-        leading: IconButton(onPressed: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>
-                const CartPage()),
-          );
-        }, icon: const ImageIcon(AssetImage('assets/shopping.png'), color: Colors.black,),),
         title: Image.asset('assets/Logo.png', scale: 1.8,),
         centerTitle: true,
         actions: [

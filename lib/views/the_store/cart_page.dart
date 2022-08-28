@@ -21,7 +21,9 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: const Color(0xffF4F4F4),
+      ),
       body: Column(
         children: [
           Expanded(

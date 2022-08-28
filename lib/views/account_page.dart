@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class Account extends StatefulWidget {
+  const Account({Key? key}) : super(key: key);
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<Account> createState() => _AccountState();
 }
 
-class _ProfileState extends State<Profile> {
+class _AccountState extends State<Account> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +16,7 @@ class _ProfileState extends State<Profile> {
         backgroundColor: const Color(0xffF4F4F4),
         elevation: 0,
         leading: IconButton(onPressed: (){}, icon: const ImageIcon(AssetImage('assets/slide.png'), color: Colors.black,),),
-        title: const Text('Profile', style: TextStyle(color: Colors.black),),
+        title: const Text('Account', style: TextStyle(color: Colors.black),),
         centerTitle: true,
         actions: [
           IconButton(onPressed: (){}, icon: const ImageIcon(AssetImage('assets/uploadVideo.png'), color: Colors.black,),),
