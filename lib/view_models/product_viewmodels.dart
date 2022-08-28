@@ -6,7 +6,7 @@ import 'package:skate_iraq/models/enum.dart';
 
 import '../models/product_models.dart';
 
-class ProductViewModel extends ChangeNotifier{
+class ProductViewModels extends ChangeNotifier{
 
  Products? products;
 LoadingState loadingState = LoadingState.idle;

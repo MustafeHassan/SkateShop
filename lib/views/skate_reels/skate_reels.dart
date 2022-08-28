@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-
-import '../widgets/reel_side_bar.dart';
-import '../widgets/reel_detail.dart';
+import 'widgets/reel_side_bar.dart';
+import 'widgets/reel_detail.dart';
 
 class SkateReels extends StatefulWidget {
   const SkateReels({Key? key}) : super(key: key);

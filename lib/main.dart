@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:skate_iraq/view_models/product_viewmodel.dart';
-import 'package:skate_iraq/views/map_page.dart';
 
-import 'views/home_page.dart';
-import 'views/categories.dart';
-import 'views/skate_reels.dart';
-import 'views/locations.dart';
+import 'package:provider/provider.dart';
+import 'package:skate_iraq/view_models/product_viewmodels.dart';
+import 'package:skate_iraq/views/map_page.dart';
+import 'views/skate_reels/skate_reels.dart';
 import 'views/profile.dart';
+import 'views/the_store/categories.dart';
+import 'views/the_store/home_page.dart';
 
 
 void main() {
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ProductViewModel()),
+        ChangeNotifierProvider(create: (_) => ProductViewModels()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

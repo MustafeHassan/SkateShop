@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:skate_iraq/views/cart_page.dart';
-import 'package:skate_iraq/views/product_details.dart';
-import 'package:skate_iraq/views/search_page.dart';
+import 'package:skate_iraq/views/the_store/product_details.dart';
 
-import '../view_models/product_viewmodel.dart';
+import '../../../view_models/product_viewmodels.dart';
+import 'cart_page.dart';
+import 'search_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

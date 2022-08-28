@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:skate_iraq/views/product_details.dart';
-import '../view_models/product_viewmodel.dart';
+
+import '../../view_models/product_viewmodels.dart';
+import 'product_details.dart';
+
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
