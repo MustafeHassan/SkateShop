@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:skate_iraq/utils/utils.dart';
 
 import '../../view_models/product_viewmodels.dart';
 import 'product_details_page.dart';
@@ -22,6 +23,11 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(Icons.arrow_back_outlined, color: Colors.black,),
+        ),
+        elevation: 0,
         backgroundColor: const Color(0xffF4F4F4),
         title: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -52,11 +58,7 @@ class _SearchPageState extends State<SearchPage> {
                       itemBuilder: (context, int index) {
                         return (snapshot.data as List)[index].title.contains(searchString)? GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) =>
-                                  ProductDetails(product: (snapshot.data as List)[index],)),
-                            );
+                            push(context, ProductDetails(product: (snapshot.data as List)[index],));
                           },
                           child: SizedBox(
                             child: Card(

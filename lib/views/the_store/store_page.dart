@@ -1,8 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:skate_iraq/models/product_models.dart';
-import 'package:skate_iraq/views/the_store/product_details_page.dart';
 import 'package:lottie/lottie.dart';
+import 'package:skate_iraq/views/the_store/product_details_page.dart';
 import '../../../view_models/product_viewmodels.dart';
 import 'search_page.dart';
 import 'widgets/bulid_products_view.dart';
@@ -92,7 +91,10 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.all(8.0),
                             child: SizedBox(
                                 width: MediaQuery.of(context).size.height * 0.2,
-                                child: const Card(
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12)
+                                  ),
                                   child: Center(child: Text('T-shirts')),
                                 )),
                           );
@@ -113,11 +115,9 @@ class _HomePageState extends State<HomePage> {
                       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                           maxCrossAxisExtent: 199, childAspectRatio: 0.90, crossAxisSpacing: 4, mainAxisSpacing: 4),
                       itemCount: (snapshot.data as List).length,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return buildProductsView((snapshot.data as List)[index]);
+                      itemBuilder: (BuildContext context, index) {
+                        return buildProductsView(context ,(snapshot.data as List)[index], ProductDetails(product: (snapshot.data as List)[index]));
                       }))
-
-                  ///////////////////////////////////
 
                 ],
               ),

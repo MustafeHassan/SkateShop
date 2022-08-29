@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../models/product_models.dart';
+import '../../../utils/utils.dart';
+import '../product_details_page.dart';
 
-Widget buildProductsView(Products product) => InkWell(
+Widget buildProductsView(BuildContext context, Products product, Widget widget) => InkWell(
   onTap: () {
-
+    push(context, widget);
   },
   child: Card(
       clipBehavior: Clip.hardEdge,
