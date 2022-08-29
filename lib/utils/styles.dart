@@ -1,4 +1,4 @@
 import 'package:flutter/material.dart';
 
 
-var mapTextStyle = const TextStyle(color: Colors.white70, fontSize: 14);
+const mapTextStyle = TextStyle(color: Colors.white70, fontSize: 14);
