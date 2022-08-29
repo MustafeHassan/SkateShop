@@ -23,6 +23,10 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xffF4F4F4),
+        elevation: 0,
+
+        title: const Text('Shopping Cart', style: TextStyle(color: Colors.black),),
+        centerTitle: true,
       ),
       body: Column(
         children: [

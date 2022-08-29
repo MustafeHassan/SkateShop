@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:skate_iraq/views/the_store/product_details_page.dart';
-
+import 'package:lottie/lottie.dart';
 import '../../../view_models/product_viewmodels.dart';
-import 'cart_page.dart';
 import 'search_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -238,7 +237,7 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           }
-          return const Center(child: CircularProgressIndicator());
+          return Center(child: Lottie.asset('assets/loading.json', width: 100));
         }
       ),
     );

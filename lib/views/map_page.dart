@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lottie/lottie.dart' as lottie ;
 
 import '../models/locations.dart';
 import '../utils/styles.dart';
@@ -36,7 +38,7 @@ class MapPageState extends State<MapPage> {
                 children: [
                   GoogleMap(
                     initialCameraPosition: Iraq,
-                    markers: getmarkers((_items)[0]),
+                    markers: getmarkers(_items.first),
                     onMapCreated: (GoogleMapController controller) {
                       _controller.complete(controller);
                     },
@@ -71,7 +73,16 @@ class MapPageState extends State<MapPage> {
                                       SizedBox(
                                           height: double.infinity,
                                           width: double.infinity,
-                                          child: Image.network(_items[index].imageUrl, fit: BoxFit.cover,)),
+                                          child: CachedNetworkImage(
+                                              imageUrl: _items[index].imageUrl,
+                                              fit: BoxFit.fill,
+                                              placeholder: (context, url) => Center(child: lottie.Lottie.asset('assets/imageLoading.json', width: 150)),
+                                              errorWidget: (context, url, error) {
+                                              debugPrint('error: $error');
+                                               return const Icon(Icons.error_outline);
+                                        },
+                                       ),
+                                      ),
                                       Container(
                                         decoration: const BoxDecoration(
                                          color: Colors.black26

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../view_models/product_viewmodels.dart';
 import 'product_details_page.dart';
@@ -88,33 +89,9 @@ class _SearchPageState extends State<SearchPage> {
                 }
               );
             }
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: Lottie.asset('assets/loading.json', width: 100));
           }
       ),
     );
   }
-
-  // void filterSearchResults(String query) {
-  //   List<String> searchList = [];
-  //   searchList.addAll(duplicateItems);
-  //   if(query.isNotEmpty) {
-  //     List<String> listData = [];
-  //     for (var item in searchList) {
-  //       if(item.contains(query)) {
-  //         listData.add(item);
-  //       }
-  //     }
-  //     setState(() {
-  //       items.clear();
-  //       items.addAll(listData);
-  //     });
-  //     return;
-  //   } else {
-  //     setState(() {
-  //       items.clear();
-  //       const Text('try to search');
-  //     });
-  //   }
-  // }
-
 }
