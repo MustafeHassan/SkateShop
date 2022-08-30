@@ -16,7 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedScreenIndex = 0;
   static const List  _widgetOptions = [
-    HomePage(),
+    StorePage(),
     CartPage(),
     SkateReels(),
     MapPage(),

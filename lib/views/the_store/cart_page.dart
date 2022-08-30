@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:skate_iraq/utils/utils.dart';
+import 'package:skate_iraq/views/home.dart';
+import 'package:skate_iraq/views/the_store/store_page.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -20,14 +23,18 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xffF4F4F4),
-        elevation: 0,
+    AppBar appBar = AppBar(
+      backgroundColor: const Color(0xffF4F4F4),
+      elevation: 0,
 
-        title: const Text('Shopping Cart', style: TextStyle(color: Colors.black),),
-        centerTitle: true,
-      ),
+      title: const Text('Shopping Cart', style: TextStyle(color: Colors.black),),
+      centerTitle: true,
+    );
+
+    final height =(MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top);
+    return Scaffold(
+      backgroundColor: const Color(0xffF4F4F4),
+      appBar: appBar,
       body: Column(
         children: [
           Expanded(
@@ -39,51 +46,65 @@ class _CartPageState extends State<CartPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.2,
-                  child: Card(
-                    child: Row(
-                      children: [
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            child: Image.network('https://cdn.dribbble.com/users/1194971/screenshots/14327684/media/ed093f2cbc7b81e99006a3a5d83131b7.png?compress=1&resize=768x576&vertical=top', fit: BoxFit.cover,)),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text('some shirt'),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text('\$ 5990'),
-                            ),
-                          ],
-                        ),
-                        Row(
+                  child: LayoutBuilder(
+                    builder: (BuildContext context, BoxConstraints constraints) {
+                      return Card(
+                        child: Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: IconButton(onPressed: (){
-                                setState((){
-                                  quantity == 1 ? 1 : quantity--;
-                                });
-                              }, icon: const Icon(Icons.remove) ),
-                            ),
+                            SizedBox(
+                                width: constraints.maxWidth * 0.4,
+                                child: Image.network('https://cdn.dribbble.com/users/1194971/screenshots/14327684/media/ed093f2cbc7b81e99006a3a5d83131b7.png?compress=1&resize=768x576&vertical=top', fit: BoxFit.cover,)),
+                            SizedBox(
+                              width: constraints.maxWidth * 0.4,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text('some shirt'),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text('\$ 5990'),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child: IconButton(onPressed: (){
+                                          setState((){
+                                            quantity == 1 ? 1 : quantity--;
+                                          });
+                                        }, icon: const Icon(Icons.remove, size: 18,) ),
+                                      ),
 
-                            Text('$quantity'),
+                                      Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child: Text('$quantity'),
+                                      ),
 
-                            Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: IconButton(onPressed: (){
-                                setState((){
-                                  quantity < 5 ? quantity++ : quantity;
-                                });
-                              }, icon: const Icon(Icons.add) ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child: IconButton(onPressed: (){
+                                          setState((){
+                                            quantity < 5 ? quantity++ : quantity;
+                                          });
+                                        }, icon: const Icon(Icons.add, size: 18,) ),
+                                      ),
+
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                            IconButton(onPressed: (){}, icon: const Icon(Icons.delete))
+                            SizedBox(
+                                child: IconButton(onPressed: (){}, icon: const Icon(Icons.delete),
+                                ),
+                            ),
                           ],
                         ),
-                      ],
-                    ),
+                      );
+                    }
                   ),
                 ),
               );
@@ -91,21 +112,89 @@ class _CartPageState extends State<CartPage> {
             ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.15,
+            height: height * 0.28,
             decoration: const BoxDecoration(
-              color: Colors.redAccent,
-              backgroundBlendMode: BlendMode.darken,
-              border: Border(),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 15.0,
+                  spreadRadius: 1.0,
+                  offset: Offset(4, 4),
+                ),
+                BoxShadow(
+                  color: Colors.black26,
+                  offset: Offset(-4, -4),
+                  blurRadius: 15.0,
+                  spreadRadius: 1.0,
+
+                ),
+              ],
+              color: Color(0xffF4F4F4),
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+                topLeft: Radius.circular(40),
+                topRight: Radius.circular(40),
               ),
             ),
-           child: Center(
-             child: Padding(
-               padding: const EdgeInsets.all(12.0),
-               child: ElevatedButton(onPressed: (){}, child: const Text(' Check out '), ),
-             ),
+           child: Column(
+             mainAxisAlignment: MainAxisAlignment.end,
+             children: [
+               Padding(
+                 padding: const EdgeInsets.all(8.0),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   children: const [
+                     Text('Sub Total:'),
+                     Text('\$ 9999999'),
+                   ],
+                 ),
+               ),
+               Padding(
+                 padding: const EdgeInsets.all(8.0),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   children: const [
+                     Text('Shipping:'),
+                     Text('\$ 2.99'),
+                   ],
+                 ),
+               ),
+               Padding(
+                 padding: const EdgeInsets.all(8.0),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   children: const [
+                     Text('Total:'),
+                     Text('\$ 10000001.99'),
+                   ],
+                 ),
+               ),
+               SizedBox(
+                 child: Row(
+                   children: [
+                     Padding(
+                       padding: const EdgeInsets.all(6.0),
+                       child: ElevatedButton(onPressed: (){
+                         setState(() {
+                            push(context, const Home());
+                         });
+                       }, style: ElevatedButton.styleFrom(
+                           fixedSize: const Size(100, 45), primary: Colors.grey, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))), child: const Icon(Icons.arrow_back_outlined),
+                       ),
+                     ),
+                     Padding(
+                       padding: const EdgeInsets.all(6.0),
+                       child: ElevatedButton(onPressed: (){
+                         setState(() {
+
+                         });
+                       }, style: ElevatedButton.styleFrom(
+                           fixedSize: const Size(260, 45), primary: const Color(0xFFff0000), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))), child: const Text(' PROCESS TO CHECK OUT '),
+                       ),
+                     ),
+                   ],
+                 ),
+               ),
+             ],
            ),
           ),
         ],

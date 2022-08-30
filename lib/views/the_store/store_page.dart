@@ -6,16 +6,16 @@ import '../../../view_models/product_viewmodels.dart';
 import 'search_page.dart';
 import 'widgets/bulid_products_view.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class StorePage extends StatefulWidget {
+  const StorePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<StorePage> createState() => _StorePageState();
 }
 
 String image = 'assets/ad.png';
 
-class _HomePageState extends State<HomePage> {
+class _StorePageState extends State<StorePage> {
 
 
 
