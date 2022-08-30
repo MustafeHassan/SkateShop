@@ -4,7 +4,6 @@ import 'package:lottie/lottie.dart';
 
 import '../../../models/product_models.dart';
 import '../../../utils/utils.dart';
-import '../product_details_page.dart';
 
 Widget buildProductsView(BuildContext context, Products product, Widget widget) => InkWell(
   onTap: () {
@@ -16,14 +15,13 @@ Widget buildProductsView(BuildContext context, Products product, Widget widget) 
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: LayoutBuilder(
-          builder: (ctx, constraints) {
+          builder: (BuildContext context, BoxConstraints constraints) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CachedNetworkImage(
                   imageUrl: product.image,
                   height: constraints.maxHeight * 0.60,
-                  fit: BoxFit.cover,
                   placeholder: (context, url) => Center(child: Lottie.asset('assets/imageLoading.json', width: 150)),
                   errorWidget: (context, url, error) {
                     debugPrint('error: $error');
