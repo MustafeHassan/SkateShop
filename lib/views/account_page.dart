@@ -23,6 +23,7 @@ class _AccountState extends State<Account> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 40,),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Text('Settings', style: settingsTitleStyle,),
@@ -42,7 +43,7 @@ class _AccountState extends State<Account> {
         ),
       ),
 
-            SizedBox(height: 40,),
+            const SizedBox(height: 40,),
 
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -62,6 +63,8 @@ class _AccountState extends State<Account> {
                 ),
               ),
             ),
+
+            const SizedBox(height: 20,),
 
             Center(
               child: SizedBox(
