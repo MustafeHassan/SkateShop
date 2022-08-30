@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skate_iraq/utils/utils.dart';
-import 'package:skate_iraq/views/home.dart';
-import 'package:skate_iraq/views/the_store/store_page.dart';
+import 'package:lottie/lottie.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -13,6 +11,8 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
 
   int quantity = 1;
+  bool isEmpty = true;
+
 
   @override
   void initState() {
@@ -36,7 +36,13 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       backgroundColor: const Color(0xffF4F4F4),
       appBar: appBar,
-      body: Column(
+      body: isEmpty? Center(child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Lottie.asset('assets/cartEmpty.json', width: 150),
+          const Text('Cart is Empty')
+        ],
+      )) : Column(
         children: [
           Expanded(
             child: ListView.builder(

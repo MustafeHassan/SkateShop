@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lottie/lottie.dart' as lottie ;
+import 'package:shimmer/shimmer.dart';
 
 import '../models/locations.dart';
 import '../utils/styles.dart';
@@ -76,7 +77,16 @@ class MapPageState extends State<MapPage> {
                                           child: CachedNetworkImage(
                                               imageUrl: _items[index].imageUrl,
                                               fit: BoxFit.fill,
-                                              placeholder: (context, url) => Center(child: lottie.Lottie.asset('assets/imageLoading.json', width: 150)),
+                                              placeholder: (context, url) => ClipRRect(
+                                                borderRadius: BorderRadius.circular(10.0),
+                                                child: Shimmer.fromColors(
+                                                  baseColor: Colors.grey.shade50,
+                                                  highlightColor: Colors.grey.shade300,
+                                                  child: Container(
+                                                    color: Colors.grey.shade100,
+                                                  ),
+                                                ),
+                                              ),
                                               errorWidget: (context, url, error) {
                                               debugPrint('error: $error');
                                                return const Icon(Icons.error_outline);

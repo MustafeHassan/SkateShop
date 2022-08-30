@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../models/product_models.dart';
 import '../../../utils/utils.dart';
@@ -22,7 +23,16 @@ Widget buildProductsView(BuildContext context, Products product, Widget widget) 
                 CachedNetworkImage(
                   imageUrl: product.image,
                   height: constraints.maxHeight * 0.60,
-                  placeholder: (context, url) => Center(child: Lottie.asset('assets/imageLoading.json', width: 150)),
+                  placeholder: (context, url) => ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey.shade50,
+                      highlightColor: Colors.grey.shade300,
+                      child: Container(
+                        color: Colors.grey.shade100,
+                      ),
+                    ),
+                  ),
                   errorWidget: (context, url, error) {
                     debugPrint('error: $error');
                     return const Icon(Icons.error_outline);

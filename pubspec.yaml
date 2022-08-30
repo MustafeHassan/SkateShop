@@ -44,6 +44,7 @@ dependencies:
   video_player: ^2.4.7
   google_maps_flutter: ^2.1.12
   lottie: ^1.4.2
+  shimmer: ^2.0.0
 
 # flutter_native_splash-development.yaml
 flutter_native_splash:

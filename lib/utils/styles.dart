@@ -8,3 +8,7 @@ const titleStyle = TextStyle(color: Colors.black, fontSize: 14,);
 const priceStyle = TextStyle(color: Color(0xFFff0000), fontSize: 18, fontWeight: FontWeight.bold);
 
 const descStyle = TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400);
+
+const settingsTitleStyle = TextStyle(color: Colors.black, fontSize: 18,);
+
+const singInTitleStyle = TextStyle(color: Colors.white, fontSize: 18,);
