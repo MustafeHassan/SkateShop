@@ -2,6 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:skate_iraq/utils/styles.dart';
+import 'package:skate_iraq/utils/utils.dart';
+import 'package:skate_iraq/views/home.dart';
+import 'package:skate_iraq/views/the_store/cart_page.dart';
 
 import '../../models/product_models.dart';
 
@@ -35,6 +38,11 @@ class _ProductDetailsState extends State<ProductDetails> {
       elevation: 0,
       leading:  IconButton(onPressed: (){ Navigator.of(context).pop(); }, icon: const Icon(Icons.arrow_back, color: Colors.black,)),
       backgroundColor: const Color(0xffF4F4F4),
+      actions: [
+        IconButton(onPressed: (){
+          pushR(context, Home(selectedScreenIndex: 1));
+        }, icon: const ImageIcon(AssetImage('assets/shopping.png'), color: Colors.black,),),
+      ],
     );
 
     final height =(MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top);

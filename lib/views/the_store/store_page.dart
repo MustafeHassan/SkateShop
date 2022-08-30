@@ -16,9 +16,14 @@ class StorePage extends StatefulWidget {
 String image = 'assets/ad.png';
 
 class _StorePageState extends State<StorePage> {
+  int selectedIndex = 0;
 
-
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectedIndex;
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -31,8 +36,7 @@ class _StorePageState extends State<StorePage> {
         IconButton(onPressed: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) =>
-            const SearchPage()),
+            MaterialPageRoute(builder: (context) => const SearchPage()),
           );
         }, icon: const ImageIcon(AssetImage('assets/search.png'), color: Colors.black,),),
       ],
@@ -44,7 +48,7 @@ class _StorePageState extends State<StorePage> {
       body: StreamBuilder(
         stream: getData(),
         builder: (context, snapshot) {
-          final height =(MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top);
+          final height = (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top);
           if(snapshot.hasData) {
             return SingleChildScrollView(
               child: Column(
@@ -91,11 +95,19 @@ class _StorePageState extends State<StorePage> {
                             padding: const EdgeInsets.all(8.0),
                             child: SizedBox(
                                 width: MediaQuery.of(context).size.height * 0.2,
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12)
+                                child: GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      selectedIndex=index;
+                                    });
+                                  },
+                                  child: Card(
+                                    color: selectedIndex==index?  Colors.red :Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12)
+                                    ),
+                                    child: Center(child: Text('T-shirts', style: TextStyle(color:  selectedIndex==index? Colors.white : Colors.black,),)),
                                   ),
-                                  child: Center(child: Text('T-shirts')),
                                 )),
                           );
                         }

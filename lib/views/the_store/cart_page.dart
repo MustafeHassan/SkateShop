@@ -24,6 +24,7 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     AppBar appBar = AppBar(
+      leading: Container(),
       backgroundColor: const Color(0xffF4F4F4),
       elevation: 0,
 
@@ -168,30 +169,16 @@ class _CartPageState extends State<CartPage> {
                    ],
                  ),
                ),
-               SizedBox(
-                 child: Row(
-                   children: [
-                     Padding(
-                       padding: const EdgeInsets.all(6.0),
-                       child: ElevatedButton(onPressed: (){
-                         setState(() {
-                            push(context, const Home());
-                         });
-                       }, style: ElevatedButton.styleFrom(
-                           fixedSize: const Size(100, 45), primary: Colors.grey, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))), child: const Icon(Icons.arrow_back_outlined),
-                       ),
-                     ),
-                     Padding(
-                       padding: const EdgeInsets.all(6.0),
-                       child: ElevatedButton(onPressed: (){
-                         setState(() {
+               Center(
+                 child: Padding(
+                   padding: const EdgeInsets.all(12.0),
+                   child: ElevatedButton(onPressed: (){
+                     setState(() {
 
-                         });
-                       }, style: ElevatedButton.styleFrom(
-                           fixedSize: const Size(260, 45), primary: const Color(0xFFff0000), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))), child: const Text(' PROCESS TO CHECK OUT '),
-                       ),
-                     ),
-                   ],
+                     });
+                   }, style: ElevatedButton.styleFrom(
+                       fixedSize: const Size(370, 45), primary: const Color(0xFFff0000), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))), child: const Text(' PROCESS TO CHECK OUT '),
+                   ),
                  ),
                ),
              ],

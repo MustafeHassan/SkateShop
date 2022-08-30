@@ -7,14 +7,13 @@ import 'the_store/cart_page.dart';
 import 'the_store/store_page.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
+   Home({Key? key, required this.selectedScreenIndex}) : super(key: key);
+ int selectedScreenIndex = 0;
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  int _selectedScreenIndex = 0;
   static const List  _widgetOptions = [
     StorePage(),
     CartPage(),
@@ -25,7 +24,7 @@ class _HomeState extends State<Home> {
 
   void _selectScreen(int index) {
     setState(() {
-      _selectedScreenIndex = index;
+      widget.selectedScreenIndex = index;
     });
   }
 
@@ -36,17 +35,17 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: const Color(0xffF4F4F4),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedScreenIndex),
+        child: _widgetOptions.elementAt(widget.selectedScreenIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        unselectedItemColor: _selectedScreenIndex == 2? const Color(0xffF4F4F4) : Colors.black,
-        selectedItemColor: const Color(0xFFff0000),        currentIndex: _selectedScreenIndex,
+        unselectedItemColor: widget.selectedScreenIndex == 2? const Color(0xffF4F4F4) : Colors.black,
+        selectedItemColor: const Color(0xFFff0000),        currentIndex: widget.selectedScreenIndex,
         onTap: _selectScreen,
         elevation: 0,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: _selectedScreenIndex == 2? Colors.black : const Color(0xffF4F4F4),
+        backgroundColor: widget.selectedScreenIndex == 2? Colors.black : const Color(0xffF4F4F4),
         items: const [
           BottomNavigationBarItem(
             icon: ImageIcon(
