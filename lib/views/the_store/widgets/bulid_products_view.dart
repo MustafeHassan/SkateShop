@@ -8,7 +8,7 @@ import '../../../models/product_models.dart';
 import '../../../utils/utils.dart';
 import '../product_details_page.dart';
 
-Widget buildProductsView(BuildContext context, DocumentSnapshot product, Widget widget, DocumentSnapshot cate) => InkWell(
+Widget buildProductsView(BuildContext context, DocumentSnapshot product, Widget widget) => InkWell(
   onTap: () {
     push(context, widget);
   },

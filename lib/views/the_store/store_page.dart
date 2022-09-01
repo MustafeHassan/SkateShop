@@ -130,8 +130,7 @@ class _StorePageState extends State<StorePage> {
                                     child: GestureDetector(
                                       onTap: (){
                                         setState(() {
-                                          cate = Categories[index];
-                                          pro = Products[index];
+                                          Categories[index];
                                           selectedIndex=index;
                                         });
                                       },
@@ -162,7 +161,7 @@ class _StorePageState extends State<StorePage> {
                           maxCrossAxisExtent: 199, childAspectRatio: 0.90, crossAxisSpacing: 4, mainAxisSpacing: 4),
                       itemCount: streamSnapshot.data!.docs.length,
                       itemBuilder: (BuildContext context, index) {
-                        return buildProductsView(context , Products[index], ProductDetails(documentSnapshot: Products[index], ), cate);
+                        return buildProductsView(context , Products[index], ProductDetails(documentSnapshot: Products[index],));
                       }))
                     ],
                   ),
