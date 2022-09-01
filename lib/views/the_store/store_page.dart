@@ -22,11 +22,7 @@ class _StorePageState extends State<StorePage> {
   int selectedIndex = 0;
   var cate;
   var pro;
-  Future categoryFuture =_fireStore.collection('Categories').orderBy('time').get();
-  Future productsFuture = _fireStore.collection('Products').get();
-  List Categories = [];
-  List Products = [];
-  
+
 @override
   void initState() {
     // TODO: implement initState
@@ -58,32 +54,33 @@ class _StorePageState extends State<StorePage> {
       appBar: appBar,
       backgroundColor: const Color(0xffF4F4F4),
       body: FutureBuilder(
-          future: categoryFuture,
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshott) async{
+          future: _fireStore.collection('Categories').orderBy('time').get(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshott) {
             if (snapshott.hasError) return Center(child: Text('Error = ${snapshott.error}'));
             if (snapshott.hasData) {
-
+              // final docs = streamSnapshot.data!.docs;
 
               final cateDocs = snapshott.data!.docs;
 
-              final proDocs = await productsFuture.docs;
+              List Categories = [];
               for(var cate in cateDocs) {
-
                 Categories.add(cate);
-
-              }
-              
-              
-              for(var pro in proDocs) {
-                Products.add(pro);
               }
 
-           
+          return FutureBuilder(
+              future: _fireStore.collection('Products').get(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) return Center(child: Text('Error = ${snapshot.error}'));
+                if (snapshot.hasData) {
 
-                   
-                   
 
-                  
+                   final proDocs = snapshot.data!.docs;
+
+                   List Products = [];
+
+                  for (var product in proDocs) {
+                    Products.add(product);
+                  }
 
                   return SingleChildScrollView(
                   child: Column(
@@ -132,7 +129,7 @@ class _StorePageState extends State<StorePage> {
                         height: height * 0.09,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                            itemCount: Categories.length,
+                            itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, index){
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -141,7 +138,7 @@ class _StorePageState extends State<StorePage> {
                                     child: GestureDetector(
                                       onTap: (){
                                         setState(() {
-                                       
+                                          Categories[index];
                                           selectedIndex=index;
                                         });
                                       },
@@ -172,7 +169,7 @@ class _StorePageState extends State<StorePage> {
                           maxCrossAxisExtent: 199, childAspectRatio: 0.90, crossAxisSpacing: 4, mainAxisSpacing: 4),
                       itemCount: Products.length,
                       itemBuilder: (BuildContext context, index) {
-                        return buildProductsView(context , Products, categories[selectedIndex]['name'], ProductDetails(documentSnapshot: Products[index],));
+                        return buildProductsView(context , Products[index], ProductDetails(documentSnapshot: Products[index],));
                       }))
                     ],
                   ),
@@ -181,8 +178,10 @@ class _StorePageState extends State<StorePage> {
               return Center(child: Lottie.asset('assets/loading.json', width: 100));
             }
           );
-
-
+        }
+            return Center(child: Lottie.asset('assets/loading.json', width: 100));
+     }
+      ),
     );
   }
 }

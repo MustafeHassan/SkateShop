@@ -23,13 +23,13 @@ class _SkateReelsState extends State<SkateReels> {
   late VideoPlayerController controller;
   bool isPressed = false;
   final _fireStore = FirebaseFirestore.instance;
-  List reels = [];
+  List Reels = [];
 
 @override
   void initState() async {
     // TODO: implement initState
   super.initState();
-    controller = VideoPlayerController.network(reels[0])
+    controller = VideoPlayerController.network(Reels[0]['reel'])
       ..addListener(() { })
       ..setLooping(true)
       ..initialize().then((_) => controller.play());
@@ -114,9 +114,9 @@ class _SkateReelsState extends State<SkateReels> {
             if (snapshot.hasData) {
 
               // var docs = snapshot.data.length;
-              List Products = [];
-              for (var product in snapshot.data!.docs) {
-                Products.add(product);
+
+              for (var reel in snapshot.data!.docs) {
+                Reels.add(reel);
               }
 
               return PageView.builder(
