@@ -105,25 +105,23 @@ class _SkateReelsState extends State<SkateReels> {
         ],
       ),
       backgroundColor: const Color(0xffF4F4F4),
-      body: StreamBuilder(
-          stream: _fireStore.collection('reels').snapshots(),
-          builder: (context, AsyncSnapshot streamSnapshot) {
-            if (streamSnapshot.hasError) {
-              return Center(child: Text('Error = ${streamSnapshot.error}'));
+      body: FutureBuilder(
+          future: _fireStore.collection('reels').get(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Center(child: Text('Error = ${snapshot.error}'));
             }
-            if (streamSnapshot.hasData) {
-              // final docs = streamSnapshot.data!.docs;
+            if (snapshot.hasData) {
+
+              // var docs = snapshot.data.length;
               List Products = [];
-              for (var product in streamSnapshot.data!.docs.reversed) {
+              for (var product in snapshot.data!.docs) {
                 Products.add(product);
-              }
-              for (var reel in streamSnapshot.data!.docs.reversed['reel']) {
-                reels.add(reel);
               }
 
               return PageView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: 12,
+                  itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       behavior: HitTestBehavior.opaque,

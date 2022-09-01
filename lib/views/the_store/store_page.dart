@@ -53,28 +53,36 @@ class _StorePageState extends State<StorePage> {
     return Scaffold(
       appBar: appBar,
       backgroundColor: const Color(0xffF4F4F4),
-      body: StreamBuilder(
-          stream: _fireStore.collection('Categories').orderBy('time').snapshots(),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.hasError) return Center(child: Text('Error = ${snapshot.error}'));
-            if (snapshot.hasData) {
+      body: FutureBuilder(
+          future: _fireStore.collection('Categories').orderBy('time').get(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshott) {
+            if (snapshott.hasError) return Center(child: Text('Error = ${snapshott.error}'));
+            if (snapshott.hasData) {
               // final docs = streamSnapshot.data!.docs;
+
+              final cateDocs = snapshott.data!.docs;
+
               List Categories = [];
-              for(var cate in snapshot.data!.docs.reversed) {
+              for(var cate in cateDocs) {
                 Categories.add(cate);
               }
 
-          return StreamBuilder(
-              stream: _fireStore.collection('Products').snapshots(),
-              builder: (context, AsyncSnapshot streamSnapshot) {
-                if (streamSnapshot.hasError) return Center(child: Text('Error = ${streamSnapshot.error}'));
-                if (streamSnapshot.hasData) {
-                  // final docs = streamSnapshot.data!.docs;
-                  List Products = [];
-                  for(var product in streamSnapshot.data!.docs.reversed) {
+          return FutureBuilder(
+              future: _fireStore.collection('Products').get(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) return Center(child: Text('Error = ${snapshot.error}'));
+                if (snapshot.hasData) {
+
+
+                   final proDocs = snapshot.data!.docs;
+
+                   List Products = [];
+
+                  for (var product in proDocs) {
                     Products.add(product);
                   }
-                return SingleChildScrollView(
+
+                  return SingleChildScrollView(
                   child: Column(
                     children: [
                       ///////////////////////////////////
@@ -159,7 +167,7 @@ class _StorePageState extends State<StorePage> {
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                           maxCrossAxisExtent: 199, childAspectRatio: 0.90, crossAxisSpacing: 4, mainAxisSpacing: 4),
-                      itemCount: streamSnapshot.data!.docs.length,
+                      itemCount: Products.length,
                       itemBuilder: (BuildContext context, index) {
                         return buildProductsView(context , Products[index], ProductDetails(documentSnapshot: Products[index],));
                       }))
