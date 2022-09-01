@@ -6,6 +6,9 @@
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: depend_on_referenced_packages
 
+import 'package:cloud_firestore_web/cloud_firestore_web.dart';
+import 'package:firebase_core_web/firebase_core_web.dart';
+import 'package:firebase_database_web/firebase_database_web.dart';
 import 'package:flutter_native_splash/flutter_native_splash_web.dart';
 import 'package:shared_preferences_web/shared_preferences_web.dart';
 import 'package:video_player_web/video_player_web.dart';
@@ -14,6 +17,9 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 // ignore: public_member_api_docs
 void registerPlugins(Registrar registrar) {
+  FirebaseFirestoreWeb.registerWith(registrar);
+  FirebaseCoreWeb.registerWith(registrar);
+  FirebaseDatabaseWeb.registerWith(registrar);
   FlutterNativeSplashWeb.registerWith(registrar);
   SharedPreferencesPlugin.registerWith(registrar);
   VideoPlayerPlugin.registerWith(registrar);

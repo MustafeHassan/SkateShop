@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
@@ -10,9 +11,9 @@ import 'package:skate_iraq/views/the_store/cart_page.dart';
 import '../../models/product_models.dart';
 
 class ProductDetails extends StatefulWidget {
-  const ProductDetails({Key? key, required this.product}) : super(key: key);
+  const ProductDetails({Key? key, required this.documentSnapshot}) : super(key: key);
 
-  final Products product;
+  final DocumentSnapshot documentSnapshot;
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
 }
@@ -53,7 +54,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       body: Column(
             children: [
               CachedNetworkImage(
-                imageUrl: widget.product.image,
+                imageUrl: widget.documentSnapshot['image'],
                 height: height * 0.40,
                 placeholder: (context, url) => ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
@@ -105,7 +106,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           alignment: Alignment.bottomLeft,
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
-                            child: Text(widget.product.title, style: titleStyle),
+                            child: Text(widget.documentSnapshot['title'], style: titleStyle),
                           ),
                         ),
                         Container(
@@ -113,7 +114,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           alignment: Alignment.topRight,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('\$ ${widget.product.price}', style: priceStyle),
+                            child: Text('\$ ${widget.documentSnapshot['price']}', style: priceStyle),
                           ),
                         ),
                         Container(
@@ -124,7 +125,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             child: SizedBox(
 
                                 child:  Text('''
-${widget.product.description}
+${widget.documentSnapshot['description']}
                       ''', overflow: TextOverflow.clip, style: descStyle)),
                           ),
                         ),

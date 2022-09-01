@@ -1,12 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../models/product_models.dart';
 import '../../../utils/utils.dart';
+import '../product_details_page.dart';
 
-Widget buildProductsView(BuildContext context, Products product, Widget widget) => InkWell(
+Widget buildProductsView(BuildContext context, DocumentSnapshot product, Widget widget, DocumentSnapshot cate) => InkWell(
   onTap: () {
     push(context, widget);
   },
@@ -21,7 +23,7 @@ Widget buildProductsView(BuildContext context, Products product, Widget widget) 
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CachedNetworkImage(
-                  imageUrl: product.image,
+                  imageUrl: product['image'],
                   height: constraints.maxHeight * 0.60,
                   placeholder: (context, url) => ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
@@ -45,7 +47,7 @@ Widget buildProductsView(BuildContext context, Products product, Widget widget) 
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: Text(
-                        product.title,
+                        product['title'],
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(fontSize: 15,
@@ -62,7 +64,7 @@ Widget buildProductsView(BuildContext context, Products product, Widget widget) 
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: Text(
-                        '\$ ${product.price}',
+                        '\$ ${product['price']}',
                         maxLines: 1,
                         style: const TextStyle(fontSize: 15,
                             fontFamily: 'Tajawal',

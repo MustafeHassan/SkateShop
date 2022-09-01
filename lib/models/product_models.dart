@@ -1,6 +1,8 @@
 // To parse this JSON data, do
 //
 //     final products = productsFromJson(jsonString);
+
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<Products> productsFromJson(String str) => List<Products>.from(json.decode(str).map((x) => Products.fromJson(x)));
@@ -43,9 +45,6 @@ class Products {
   };
 }
 
-enum Category { MEN_S_CLOTHING, JEWELERY, ELECTRONICS, WOMEN_S_CLOTHING }
-
-
 class Rating {
   Rating({
     required this.rate,
@@ -65,4 +64,6 @@ class Rating {
     "count": count,
   };
 }
+
+
 

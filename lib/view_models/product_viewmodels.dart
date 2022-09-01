@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:skate_iraq/models/enum.dart';
@@ -27,15 +28,20 @@ void fetchProduct() async {
 
 Stream getData() async* {
 
-  var url = Uri.parse('https://fakestoreapi.com/products');
 
-  debugPrint('url: $url');
-  var response = await http.get(
-    url,
-  );
-  debugPrint('response: $response');
-  debugPrint('response.statusCode: ${response.statusCode}');
-  var jsonUsers = jsonDecode(response.body);
+
+  // var url = Uri.parse('https://fakestoreapi.com/products');
+  //
+  // debugPrint('url: $url');
+  // var response = await http.get(
+  //   url,
+  // );
+  // debugPrint('response: $response');
+  // debugPrint('response.statusCode: ${response.statusCode}');
+  // var jsonUsers = jsonDecode(response.body);
   // products = Products.fromJson(data);
-  yield jsonUsers.map<Products>((userJson) => Products.fromJson(userJson)).toList();
+
+   //yield _fireStore.collection('Products').snapshots();
+
+  // jsonUsers.map<Products>((userJson) => Products.fromJson(userJson)).toList();
 }

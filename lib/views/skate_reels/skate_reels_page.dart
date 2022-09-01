@@ -61,12 +61,10 @@ class _SkateReelsState extends State<SkateReels> {
               },
               child: Stack(
                 children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: double.infinity,
-                        width: double.infinity,
-                        child: controller != null ? VideoPlayer(controller) : const Center(child: CircularProgressIndicator())
-                    ),
+                  SizedBox(
+                    height: double.infinity,
+                      width: double.infinity,
+                      child: controller != null ? VideoPlayer(controller) : const Center(child: CircularProgressIndicator())
                   ),
                   isPressed == true? buildPlay() : Container(),
                   Container(
