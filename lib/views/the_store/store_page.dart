@@ -171,7 +171,7 @@ class _StorePageState extends State<StorePage> {
             }
           );
         }
-          return Center();
+            return Center(child: Lottie.asset('assets/loading.json', width: 100));
      }
       ),
     );

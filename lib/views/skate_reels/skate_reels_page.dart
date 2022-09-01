@@ -1,7 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:video_player/video_player.dart';
 import 'widgets/reel_side_bar.dart';
 import 'widgets/reel_detail.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:path/path.dart' as path;
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class SkateReels extends StatefulWidget {
   const SkateReels({Key? key}) : super(key: key);
@@ -14,15 +22,18 @@ class _SkateReelsState extends State<SkateReels> {
 
   late VideoPlayerController controller;
   bool isPressed = false;
+  final _fireStore = FirebaseFirestore.instance;
+  String? Video;
+  List reels = [];
 
 @override
-  void initState() {
+  void initState() async {
     // TODO: implement initState
-    super.initState();
-    controller = VideoPlayerController.asset('assets/projectsEdit.mp4')
-    ..addListener(() { })
-    ..setLooping(true)
-    ..initialize().then((_) => controller.play());
+  super.initState();
+    controller = VideoPlayerController.network(reels.toString())
+      ..addListener(() { })
+      ..setLooping(true)
+      ..initialize().then((_) => controller.play());
   }
 
   @override
@@ -32,8 +43,52 @@ class _SkateReelsState extends State<SkateReels> {
     super.dispose();
   }
 
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
+
+  File? _photo;
+  String? imageUrl;
+  bool? isLoading;
+
+  final ImagePicker _picker = ImagePicker();
+
+  Future imgFromGallery() async {
+    final pickedFile = await _picker.pickVideo(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _photo = File(pickedFile.path);
+        uploadFile();
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  Future uploadFile() async {
+    if (_photo == null) return;
+    final fileName = path.basename(_photo!.path);
+    final destination = 'files/$fileName';
+
+    try {
+      final ref = firebase_storage.FirebaseStorage.instance
+          .ref(destination)
+          .child('file/');
+      await ref.putFile(_photo!);
+      imageUrl = await ref.getDownloadURL();
+      print(imageUrl);
+      print(_photo!);
+    } catch (e) {
+      print('error occured');
+    }
+  }
+
+  final _firestore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
+    controller;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -42,67 +97,105 @@ class _SkateReelsState extends State<SkateReels> {
         title: const Text('SkateReels',),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: (){}, icon: const ImageIcon(AssetImage('assets/uploadVideo.png'),),),
+          IconButton(onPressed: (){
+            imgFromGallery();
+            _firestore.collection('reels').add({
+              'title': 'this is a title',
+              'reel': imageUrl,
+              'time': FieldValue.serverTimestamp(),
+            });
+            }, icon: const ImageIcon(AssetImage('assets/uploadVideo.png'),),),
         ],
       ),
       backgroundColor: const Color(0xffF4F4F4),
-      body: PageView.builder(
-        scrollDirection: Axis.vertical,
-          itemCount: 12,
-          itemBuilder: (context, index) {
-            return  GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () {
-                setState((){
-                  isPressed = true;
-                  controller.value.isPlaying? controller.pause() : controller.play();
-                });
+      body: StreamBuilder(
+          stream: _fireStore.collection('reels').snapshots(),
+          builder: (context, AsyncSnapshot streamSnapshot) {
+            if (streamSnapshot.hasError) {
+              return Center(child: Text('Error = ${streamSnapshot.error}'));
+            }
+            if (streamSnapshot.hasData) {
+              // final docs = streamSnapshot.data!.docs;
+              List Products = [];
+              for (var product in streamSnapshot.data!.docs.reversed) {
+                Products.add(product);
+              }
+              reels = [];
+              for (var reel in streamSnapshot.data!.docs.reversed['reel']) {
+                reels.add(reel);
+              }
 
-              },
-              child: Stack(
-                children: [
-                  SizedBox(
-                    height: double.infinity,
-                      width: double.infinity,
-                      child: controller != null ? VideoPlayer(controller) : const Center(child: CircularProgressIndicator())
-                  ),
-                  isPressed == true? buildPlay() : Container(),
-                  Container(
-                    decoration:  BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.black.withOpacity(0.3), Colors.transparent],
-                        begin: const Alignment(0, -0.75),
-                        end: const Alignment(0, 0.1),
-                      )
-                    ),
-                  ),
-                  Container(
-                    decoration:  BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Colors.black.withOpacity(0.3), Colors.transparent],
-                          end: const Alignment(0, -0.75),
-                          begin: const Alignment(0, 0.1),
-                        )
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: const [
-                          Flexible(flex: 14,child:  ReelDetail(),
+              return PageView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: 12,
+                  itemBuilder: (context, index) {
+                    Video = Products[index]['reel'];
+                    return GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        setState(() {
+                          isPressed = true;
+                          controller.value.isPlaying
+                              ? controller.pause()
+                              : controller.play();
+                        });
+                      },
+                      child: Stack(
+                        children: [
+                          SizedBox(
+                              height: double.infinity,
+                              width: double.infinity,
+                              child: controller != null ? VideoPlayer(
+                                  controller) : const Center(
+                                  child: CircularProgressIndicator())
                           ),
-                          Flexible(flex: 2,child: ReelSideBar(),
+                          isPressed == true ? buildPlay() : Container(),
+                          Container(
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.black.withOpacity(0.3),
+                                    Colors.transparent
+                                  ],
+                                  begin: const Alignment(0, -0.75),
+                                  end: const Alignment(0, 0.1),
+                                )
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.black.withOpacity(0.3),
+                                    Colors.transparent
+                                  ],
+                                  end: const Alignment(0, -0.75),
+                                  begin: const Alignment(0, 0.1),
+                                )
+                            ),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: const [
+                                  Flexible(flex: 14, child: ReelDetail(),
+                                  ),
+                                  Flexible(flex: 2, child: ReelSideBar(),
+                                  )
+                                ],
+                              )
+                            ],
                           )
                         ],
-                      )
-                    ],
-                  )
-                ],
-              ),
-            );
-          }),
+                      ),
+                    );
+                  });
+            }
+            return Center(child: Lottie.asset('assets/loading.json', width: 100));
+          }
+      ),
     );
   }
   buildPlay() => controller.value.isPlaying 
