@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skate_iraq/utils/styles.dart';
 import 'package:skate_iraq/utils/utils.dart';
+import 'package:skate_iraq/views/customers_service.dart';
 import 'package:skate_iraq/views/sign_in.dart';
 
 class Account extends StatefulWidget {
@@ -49,7 +50,7 @@ class _AccountState extends State<Account> {
 
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text('Conect us', style: settingsTitleStyle,),
+              child: Text('Contact us', style: settingsTitleStyle,),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -59,7 +60,7 @@ class _AccountState extends State<Account> {
                 ),
                 child: ListTile(
                   leading: const Icon(Icons.headphones),
-                  onTap: (){},
+                  onTap: (){ push(context, const CustomersService()); },
                   title: const Text('customer service'),
                   trailing: const Icon(Icons.arrow_forward_ios_outlined),
                 ),
@@ -74,7 +75,7 @@ class _AccountState extends State<Account> {
                   padding: const EdgeInsets.all(12.0),
                   child: ElevatedButton(onPressed: (){
                     setState(() {
-                       push(context, Login());
+                       push(context, const Login());
                     });
                   },
                     style: ElevatedButton.styleFrom(
