@@ -23,14 +23,13 @@ class _SkateReelsState extends State<SkateReels> {
   late VideoPlayerController controller;
   bool isPressed = false;
   final _fireStore = FirebaseFirestore.instance;
-  String? Video;
   List reels = [];
 
 @override
   void initState() async {
     // TODO: implement initState
   super.initState();
-    controller = VideoPlayerController.network(reels.toString())
+    controller = VideoPlayerController.network(reels[0])
       ..addListener(() { })
       ..setLooping(true)
       ..initialize().then((_) => controller.play());
@@ -87,8 +86,6 @@ class _SkateReelsState extends State<SkateReels> {
 
   @override
   Widget build(BuildContext context) {
-    controller;
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -120,7 +117,6 @@ class _SkateReelsState extends State<SkateReels> {
               for (var product in streamSnapshot.data!.docs.reversed) {
                 Products.add(product);
               }
-              reels = [];
               for (var reel in streamSnapshot.data!.docs.reversed['reel']) {
                 reels.add(reel);
               }
@@ -129,7 +125,6 @@ class _SkateReelsState extends State<SkateReels> {
                   scrollDirection: Axis.vertical,
                   itemCount: 12,
                   itemBuilder: (context, index) {
-                    Video = Products[index]['reel'];
                     return GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
