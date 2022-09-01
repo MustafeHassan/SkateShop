@@ -53,13 +53,14 @@ class _LoginState extends State<Login> {
                   child: Image.asset('assets/Logo.png', scale: 1.3,)
                 ),
               ),
-              SizedBox(height: 32,),
-              SizedBox(
-                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.05,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 190),
+              const SizedBox(height: 32,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: Container(
+                  height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.05,
+                  alignment: Alignment.topLeft,
                   child: Text(
-                    'اسم المستخدم',
+                    'Email',
                     style: _textstyle,
                   ),
                 ),
@@ -87,12 +88,13 @@ class _LoginState extends State<Login> {
                 ),
               ),
               SizedBox(height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.03,),
-              SizedBox(
-                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.05,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 216),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: Container(
+                  height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.05,
+                  alignment: Alignment.topLeft,
                   child: Text(
-                    'كلمة المرور',
+                    'Password',
                     style: _textstyle,
                   ),
                 ),
@@ -123,13 +125,11 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.04,
               ),
-              SizedBox(
-                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.05,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 190,
-                  ),
-                  // ignore: deprecated_member_use
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: Container(
+                  height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.05,
+                  alignment: Alignment.topLeft,
                   child: RaisedButton(
                     onPressed: (){},
                     shape: RoundedRectangleBorder(
@@ -148,7 +148,7 @@ class _LoginState extends State<Login> {
                   children: [
 
                     const Text(
-                      'ليس لديك حساب بعد ؟',
+                      'You don\'t have an account yet?',
                       style: TextStyle(
                           fontSize: 16, fontFamily: "Tajawal", color: Colors.black),
                     ),
@@ -157,7 +157,7 @@ class _LoginState extends State<Login> {
                           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_context) => const SignUp()));
                         },
                         child: const Text(
-                          'سجل الان',
+                          'Sign Up Now',
                           style: TextStyle(
                               fontSize: 16,
                               fontFamily: "Tajawal",
