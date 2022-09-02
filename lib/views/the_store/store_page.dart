@@ -70,10 +70,12 @@ class _StorePageState extends State<StorePage> {
                 Categories.add(cate);
               }
 
+              // هنا المشكله ماكدر استدعي ال docs
               final proDocs =  productsFuture.docs;
               for(var pro in proDocs) {
                 Products.add(pro);
               }
+              // اذا حطيت async الكود يصير كله ايرورات
 
               return SingleChildScrollView(
                 child: Column(
