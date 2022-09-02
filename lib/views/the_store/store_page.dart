@@ -22,19 +22,24 @@ class _StorePageState extends State<StorePage> {
   int selectedIndex = 0;
   var cate;
   var pro;
+  final _fireStore = FirebaseFirestore.instance;
+  final categoryFuture = FirebaseFirestore.instance.collection('Categories').orderBy('time').get();
+  Future productsFuture = FirebaseFirestore.instance.collection('Products').get();
+  List Categories = [];
+  List Products = [];
 
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     selectedIndex;
-    cate;
-    pro;
   }
+
   @override
   Widget build(BuildContext context) {
 
-    final _fireStore = FirebaseFirestore.instance;
+
+
     AppBar appBar = AppBar(
       backgroundColor:const Color(0xffF4F4F4),
       elevation: 0,
@@ -54,135 +59,115 @@ class _StorePageState extends State<StorePage> {
       appBar: appBar,
       backgroundColor: const Color(0xffF4F4F4),
       body: FutureBuilder(
-          future: _fireStore.collection('Categories').orderBy('time').get(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshott) {
+          future: categoryFuture,
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshott)  {
             if (snapshott.hasError) return Center(child: Text('Error = ${snapshott.error}'));
-            if (snapshott.hasData) {
-              // final docs = streamSnapshot.data!.docs;
+            if (snapshott.hasData)  {
+
 
               final cateDocs = snapshott.data!.docs;
-
-              List Categories = [];
               for(var cate in cateDocs) {
                 Categories.add(cate);
               }
 
-          return FutureBuilder(
-              future: _fireStore.collection('Products').get(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasError) return Center(child: Text('Error = ${snapshot.error}'));
-                if (snapshot.hasData) {
+              final proDocs =  productsFuture.docs;
+              for(var pro in proDocs) {
+                Products.add(pro);
+              }
 
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ///////////////////////////////////
+                    SizedBox(
+                      height: height * 0.25,
+                      child: PageView.builder(
+                          itemCount: 8,
+                          itemBuilder: (context, index) {
 
-                   final proDocs = snapshot.data!.docs;
-
-                   List Products = [];
-
-                  for (var product in proDocs) {
-                    Products.add(product);
-                  }
-
-                  return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      ///////////////////////////////////
-
-                      SizedBox(
-                        height: height * 0.25,
-                        child: PageView.builder(
-                            itemCount: 8,
-                            itemBuilder: (context, index) {
-
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  clipBehavior: Clip.hardEdge,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(9),
-                                  ),
-                                  child: CachedNetworkImage(
-                                    imageUrl: 'https://i.etsystatic.com/14738248/r/il/58e17b/3270171365/il_340x270.3270171365_gn95.jpg',
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) => ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      child: Shimmer.fromColors(
-                                        baseColor: Colors.grey.shade50,
-                                        highlightColor: Colors.grey.shade300,
-                                        child: Container(
-                                          color: Colors.grey.shade100,
-                                        ),
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(9),
+                                ),
+                                child: CachedNetworkImage(
+                                  imageUrl: 'https://i.etsystatic.com/14738248/r/il/58e17b/3270171365/il_340x270.3270171365_gn95.jpg',
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Shimmer.fromColors(
+                                      baseColor: Colors.grey.shade50,
+                                      highlightColor: Colors.grey.shade300,
+                                      child: Container(
+                                        color: Colors.grey.shade100,
                                       ),
                                     ),
-                                    errorWidget: (context, url, error) {
-                                      debugPrint('error: $error');
-                                      return const Icon(Icons.error_outline);
-                                    },
                                   ),
+                                  errorWidget: (context, url, error) {
+                                    debugPrint('error: $error');
+                                    return const Icon(Icons.error_outline);
+                                  },
                                 ),
-                              );
-                            }),
-                      ),
+                              ),
+                            );
+                          }),
+                    ),
 
-                      ///////////////////////////////////
-
-                      SizedBox(
-                        height: height * 0.09,
-                        child: ListView.builder(
+                    ///////////////////////////////////
+                    SizedBox(
+                      height: height * 0.09,
+                      child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index){
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                    width: MediaQuery.of(context).size.height * 0.2,
-                                    child: GestureDetector(
-                                      onTap: (){
-                                        setState(() {
-                                          Categories[index];
-                                          selectedIndex=index;
-                                        });
-                                      },
-                                      child: Card(
-                                        color: selectedIndex==index?  Colors.red :Colors.white,
-                                        shape: RoundedRectangleBorder(
+                          itemCount: Categories.length,
+                          itemBuilder: (context, index){
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                  width: MediaQuery.of(context).size.height * 0.2,
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+
+                                        selectedIndex=index;
+                                      });
+                                    },
+                                    child: Card(
+                                      color: selectedIndex==index?  Colors.red :Colors.white,
+                                      shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(12)
-                                        ),
-                                        child: Center(child: Text(Categories[index]['name'], style: TextStyle(color:  selectedIndex==index? Colors.white : Colors.black,),)),
                                       ),
-                                    )),
-                              );
-                            }
-                        ),
+                                      child: Center(child: Text(Categories[index]['name'], style: TextStyle(color:  selectedIndex==index? Colors.white : Colors.black,),)),
+                                    ),
+                                  )),
+                            );
+                          }
                       ),
+                    ),
 
-                      ///////////////////////////////////
+                    ///////////////////////////////////
+                    SizedBox(
+                      height: height * 0.01,
+                    ),
 
-                      SizedBox(
-                        height: height * 0.01,
-                      ),
-
-                  Center(
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 199, childAspectRatio: 0.90, crossAxisSpacing: 4, mainAxisSpacing: 4),
-                      itemCount: Products.length,
-                      itemBuilder: (BuildContext context, index) {
-                        return buildProductsView(context , Products[index], ProductDetails(documentSnapshot: Products[index],));
-                      }))
-                    ],
-                  ),
-                );
-              }
-              return Center(child: Lottie.asset('assets/loading.json', width: 100));
+                    Center(
+                        child: GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 199, childAspectRatio: 0.90, crossAxisSpacing: 4, mainAxisSpacing: 4),
+                            itemCount: Products.length,
+                            itemBuilder: (BuildContext context, index) {
+                              return buildProductsView(context , Products[index], Categories[selectedIndex]['name'], ProductDetails(documentSnapshot: Products[index],));
+                            }))
+                  ],
+                ),
+              );
             }
-          );
-        }
             return Center(child: Lottie.asset('assets/loading.json', width: 100));
-     }
-      ),
+          }
+      )
     );
   }
 }
-
